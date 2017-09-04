@@ -38,7 +38,7 @@ class Rocket(engine.GameObject):
             self.rocket_engine.y = self.y
             self.rocket_engine.angle = self.angle
 
-        if (HEIGHT / 2 - self.y) ** 2 + self.x ** 2 < 10000 and False:
+        if (SCREEN_HEIGHT / 2 - self.y) ** 2 + self.x ** 2 < 10000 and False:
             self.banner("Game Over")
             self.x = 0
             self.y = 0
@@ -46,9 +46,9 @@ class Rocket(engine.GameObject):
             self.acceleration[:] = 0
             self.angle = 90
 
-        if np.abs(self.x) > WIDTH / 2:
+        if np.abs(self.x) > SCREEN_WIDTH / 2:
             self.speed[0] *= - 1
-        if np.abs(self.y) > HEIGHT / 2:
+        if np.abs(self.y) > SCREEN_HEIGHT / 2:
             self.speed[1] *= - 1
 
     def keyboard(self, key):
