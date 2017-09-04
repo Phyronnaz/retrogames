@@ -8,5 +8,4 @@ to continue.
 
 You will certainly find typos and errors in my text. Please report
 them per email or directly as issues on the github interface. Thanks
-in advance.# retrogames
-# retrogames
+in advance.
