@@ -1,12 +1,12 @@
 import turtle
 import numpy as np
 import engine
-from config import HEIGHT
+from config import SCREEN_HEIGHT
 
 
 class Sun(engine.GameObject):
     def __init__(self):
-        super().__init__(0, HEIGHT / 2, 0, 0, 'sun', 'yellow')
+        super().__init__(0, SCREEN_HEIGHT / 2, 0, 0, 'sun', 'yellow')
 
 
 def makeshape_sun(scale):

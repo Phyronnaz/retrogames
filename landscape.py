@@ -6,7 +6,7 @@ from config import *
 
 class Landscape(engine.GameObject):
     def __init__(self):
-        super().__init__(0, -HEIGHT / 2 + 100, 0, 0, 'landscape', 'yellow')
+        super().__init__(0, -SCREEN_HEIGHT / 2 + 100, 0, 0, 'landscape', 'yellow')
 
     def heading(self):
         return 90
@@ -25,10 +25,10 @@ def makeshape_landscape():
 
     landscape_shape = turtle.Shape("compound")
 
-    points = [np.array([-WIDTH / 2, 0]), np.array([WIDTH / 2, 0])]
+    points = [np.array([-SCREEN_WIDTH / 2, 0]), np.array([SCREEN_WIDTH / 2, 0])]
     list = add_middlepoint(points[0], points[1], ydiff=250, depth=8, divisor=1.5)
 
-    landscape_shape.addcomponent(np.array([np.array([-WIDTH / 2, -HEIGHT])] + list + [np.array([WIDTH / 2, -HEIGHT])]),
+    landscape_shape.addcomponent(np.array([np.array([-SCREEN_WIDTH / 2, -SCREEN_HEIGHT])] + list + [np.array([SCREEN_WIDTH / 2, -SCREEN_HEIGHT])]),
                                  "grey")
 
     turtle.register_shape('landscape', landscape_shape)
