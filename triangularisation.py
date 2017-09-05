@@ -17,14 +17,12 @@ def is_convex(p1,p2,p3):
 
 
 def get_first_ear(c:CycleList)->(int,int):
-    def is_convex(d,o,b):
-        return True
     
     for e in c:
         triangle=Triangle(e.previous_node.data,e.data,e.next_node.data)
-        if triangle.is_valide():
+        if triangle.is_valid():
             continue
-        if triangle.some_inside(map(lambda y:y.data,filter(lambda x: x.data not in triangle ,c))):
+        if triangle.any_inside(map(lambda y:y.data,filter(lambda x: x.data not in triangle ,c))):
             continue
         else:
             return e,triangle

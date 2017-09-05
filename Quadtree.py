@@ -41,10 +41,5 @@ class Quadtree:
                     Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
                     Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
                 ]
-<<<<<<< HEAD
-                self.get_child(object_position).add_object(object_position, callback_object)
-    
-=======
                 for child in self.childs:
                     child.add_triangle(triangle)
->>>>>>> 4b0dbde29d88dc331f65e760ea0461413c26d632
