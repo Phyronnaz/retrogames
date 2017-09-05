@@ -51,6 +51,34 @@ class Triangle(object):
                 return False
         return True"""
 
+    @staticmethod
+    def some_inside_static(triangle,positions):
+        any(map(lambda x: triangle.is_inside(x), positions))
+        
+    @staticmethod
+    def is_inside_static(triangle,positions):
+        p0x = triangle.p0[0]
+        p0y = triangle.p0[1]
+
+        p1x = triangle.p1[0]
+        p1y = triangle.p1[1]
+
+        p2x = triangle.p2[0]
+        p2y = triangle.p2[1]
+
+        px = position[0]
+        py = position[1]
+
+        area = 0.5 * (-p1y * p2x + p0y * (-p1x + p2x) +
+                      p0x * (p1y - p2y) + p1x * p2y)
+
+        s = 1 / (2 * area) * (p0y * p2x - p0x * p2y +
+                              (p2y - p0y) * px + (p0x - p2x) * py)
+        t = 1 / (2 * area) * (p0x * p1y - p0y * p1x +
+                              (p0y - p1y) * px + (p1x - p0x) * py)
+
+        return (0 <= s <= 1) and (0 <= t <= 1) and (0 <= s + t <= 1)
+
 """
 print(Triangle((0, 0), (10, 0), (0, 10)).is_inside((1, 1)))
 print(

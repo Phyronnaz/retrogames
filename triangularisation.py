@@ -16,21 +16,32 @@ def is_convex(p1,p2,p3):
 
 
 
-def get_first_ear(c:CycleList):
+def get_first_ear(c:CycleList)->(int,int):
     def is_convex(d,o,b):
         return True
-    def format(e:Node):
-        tmp=(e.previous_node.data,e.data,e.next_node.data)
-        return (tmp)+(filter(lambda x: x!=tmp[0] and x!=tmp[1] and x!=tmp[2] ,c))
+    
     for e in c:
-        tmp=Triangle(e.previous_node.data,e.data,e.next_node.data)
-        if tmp.is_convex():
+        triangle=Triangle(e.previous_node.data,e.data,e.next_node.data)
+        if triangle.is_valide():
             continue
-        elif tmp.some_inside(map(lambda y:y.data,filter(lambda x: x!=tmp[0] and x!=tmp[1] and x!=tmp[2] ,c))):
+        if triangle.some_inside(map(lambda y:y.data,filter(lambda x: x.data not in triangle ,c))):
             continue
         else:
-            return tmp
+            return e,triangle
+
+def trig(l:list())->list():
+    c=CycleList()
+    for e in l:
+        c.push(l)
     
+    triangleList=[]
 
+    for _ in range(len(l)-2):
+        ear,triangle=get_first_ear(c)
+        triangleList.append(triangle)
+        c.remove(ear)
 
-get_first_ear(CycleList().push((0,0)).push((10,0)).push((0,10)).push((1,1)).push((10,10)))
+    return triangleList
+
+print("caca")
+print(get_first_ear(CycleList().push((0,0)).push((10,0)).push((0,10)).push((1,1)).push((10,10))))

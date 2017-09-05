@@ -38,3 +38,4 @@ class Quadtree:
                     Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
                 ]
                 self.get_child(object_position).add_object(object_position, callback_object)
+    

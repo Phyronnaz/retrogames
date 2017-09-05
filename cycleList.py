@@ -40,7 +40,19 @@ class CycleList(object):
         prev.next_node = nxt
         nxt.prev_node = prev
 
-        return old_last_node.data
+    def remove(self,node):
+        '''Pops the last node out of the list'''
+
+        if self.pointer is None:
+            raise Exception("list empty")
+
+        if self.pointer is node:
+            self.pointer=node.next_node
+
+        prev = node.previous_node
+        nxt = node.next_node
+        prev.next_node = nxt
+        nxt.prev_node = prev
 
     def next(self):
         return self.pointer.next_node.data
@@ -57,6 +69,7 @@ class CycleList(object):
         while ptr != self.pointer:
             yield ptr
             ptr = ptr.next_node
+
 
 """
 cycle_list = CycleList()
