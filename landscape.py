@@ -32,3 +32,4 @@ def makeshape_landscape():
                                  "grey")
 
     turtle.register_shape('landscape', landscape_shape)
+    return list

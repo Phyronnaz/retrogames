@@ -10,8 +10,8 @@ class CycleList(object):
         self.pointer = None
 
     def push(self, data):
-        '''Pushes the node <node> at the "front" of the ll
-        '''
+        """Pushes the node <node> at the "front" of the ll """
+
         if self.pointer is None:
             node = Node(None, None, data)
             node.previous_node = node
@@ -23,11 +23,11 @@ class CycleList(object):
             node = Node(nxt, prev, data)
             prev.next_node = node
             nxt.previous_node = node
-            self.pointer=node
+            self.pointer = node
         return self
 
     def pop(self):
-        '''Pops the last node out of the list'''
+        """Pops the last node out of the list"""
 
         if self.pointer is None:
             return None
@@ -43,10 +43,12 @@ class CycleList(object):
         return old_last_node.data
 
     def next(self):
-        return self.pointer.next_node.data
+        self.pointer = self.pointer.next_node
+        return self.pointer.data
 
     def prev(self):
-        return self.pointer.previous_node.data
+        self.pointer = self.pointer.previous_node
+        return self.pointer.data
 
     def current(self):
         return self.pointer.data
@@ -57,6 +59,7 @@ class CycleList(object):
         while ptr != self.pointer:
             yield ptr
             ptr = ptr.next_node
+
 
 """
 cycle_list = CycleList()

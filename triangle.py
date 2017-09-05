@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Triangle(object):
     def __init__(self, p0, p1, p2):
         self.p0 = p0
@@ -37,23 +40,18 @@ class Triangle(object):
 
         return (0 <= s <= 1) and (0 <= t <= 1) and (0 <= s + t <= 1)
 
-    def some_inside(self, positions):
+    def any_inside(self, positions):
         return any(map(lambda x: self.is_inside(x), positions))
-        """for e in positions:
-            if self.is_inside(e):
-                return True
-        return False"""
 
-    def every_inside(self, positions):
+    def all_inside(self, positions):
         return all(map(lambda x: self.is_inside(x), positions))
-        """for e in positions:
-            if not self.is_inside(e):
-                return False
-        return True"""
 
-"""
-print(Triangle((0, 0), (10, 0), (0, 10)).is_inside((1, 1)))
-print(
-    Triangle(
-        (0, 0), (10, 0), (0, 10)).some_inside(((100, 100), (10, 10))))
-        """
+    def is_valid(self):
+        u = np.array(self.p1) - np.array(self.p0)
+        v = np.array(self.p2) - np.array(self.p1)
+        return u[0] * v[1] - u[1] * v[0] > 0
+
+
+if __name__ == "__main__":
+    T = Triangle((0, 0), (0, 10), (10, 0))
+    print(T.is_valid())
