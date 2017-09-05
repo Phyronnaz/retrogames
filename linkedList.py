@@ -70,24 +70,3 @@ for i in range(10):
         linked_list.push(node5)
     else:
         linked_list.push(Node(data=i))
-
-print (linked_list)
-
-print ("popping")
-print (linked_list.pop().data)
-
-print ("\n\n")
-print (linked_list)
-
-
-print ("\n\n")
-linked_list.push(Node(data=10))
-
-print("\n\n")
-print (linked_list)
-
-
-linked_list.remove(node5)
-
-print("\n\n")
-print(linked_list)
