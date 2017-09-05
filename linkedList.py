@@ -1,4 +1,4 @@
-class Node():
+class Node(object):
     def __init__(self, next_node=None, previous_node=None, data=None):
         self.next_node = next_node
         self.previous_node = previous_node
@@ -6,7 +6,7 @@ class Node():
 
 
 
-class LinkedList():
+class LinkedList(object):
     def __init__(self, node):
         assert isinstance(node, Node)
         self.first_node = node
@@ -58,7 +58,7 @@ class LinkedList():
 
         return 
 
-
+"""
 node1 = Node(data=1)
 
 linked_list = LinkedList(node1)
@@ -70,3 +70,4 @@ for i in range(10):
         linked_list.push(node5)
     else:
         linked_list.push(Node(data=i))
+"""

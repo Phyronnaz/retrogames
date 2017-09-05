@@ -1,11 +1,11 @@
-class Node():
+class Node(object):
     def __init__(self, next_node, previous_node, data):
         self.next_node = next_node
         self.previous_node = previous_node
         self.data = data
 
 
-class CycleList():
+class CycleList(object):
     def __init__(self):
         self.pointer = None
 
@@ -24,6 +24,7 @@ class CycleList():
             prev.next_node = node
             nxt.previous_node = node
             self.pointer=node
+        return self
 
     def pop(self):
         '''Pops the last node out of the list'''
@@ -57,7 +58,7 @@ class CycleList():
             yield ptr
             ptr = ptr.next_node
 
-
+"""
 cycle_list = CycleList()
 
 
@@ -66,3 +67,4 @@ for i in range(10):
 
 for i in cycle_list:
     print(i.data)
+"""
