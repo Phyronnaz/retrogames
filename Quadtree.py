@@ -1,35 +1,39 @@
 import numpy as np
 
-from config import TERRAIN_WIDTH
+from config import TERRAIN_WIDTH, MAX_DEPTH
 
 
 class Quadtree:
     def __init__(self, position: np.array, depth: int = 0):
-        self.position = position
+        self.position = position  # center
         self.is_leaf = True
         self.childs = []  # type: list(Quadtree)
-        self.object_position = np.array([0, 0])
-        self.callback_object = None
+        self.triangles = []
         self.depth = depth
 
     def width(self):
         return TERRAIN_WIDTH / 2 ** self.depth
 
-    def get_callback_object(self, position: np.array):
+    def get_triangles(self, position: np.array):
         if self.is_leaf:
-            return self.callback_object
+            return self.triangles
         else:
-            return self.get_child(position).get_callback_object(position)
+            return self.get_child(position).get_triangles(position)
 
     def get_child(self, position: np.array):
         return self.childs[(position[0] >= self.position[0]) + (position[1] >= self.position[1])]
 
-    def add_object(self, object_position, callback_object):
-        if self.callback_object is None:
-            self.callback_object = callback_object
-            self.object_position = object_position
-        else:
-            if self.is_leaf:
+    def add_triangle(self, triangle):
+        d = self.width() / 2
+        if triangle.is_inside(self.position + np.array([-d, -d])) or \
+                triangle.is_inside(self.position + np.array([+d, -d])) or \
+                triangle.is_inside(self.position + np.array([-d, +d])) or \
+                triangle.is_inside(self.position + np.array([+d, +d])):
+
+            if self.depth == MAX_DEPTH:
+                self.triangles.append(triangle)
+            else:
+                self.is_leaf = False
                 d = self.width() / 4
                 self.childs = [
                     Quadtree(self.position + np.array([-d, -d]), self.depth + 1),
@@ -37,5 +41,10 @@ class Quadtree:
                     Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
                     Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
                 ]
+<<<<<<< HEAD
                 self.get_child(object_position).add_object(object_position, callback_object)
     
+=======
+                for child in self.childs:
+                    child.add_triangle(triangle)
+>>>>>>> 4b0dbde29d88dc331f65e760ea0461413c26d632
