@@ -51,6 +51,10 @@ class Triangle(object):
         v = np.array(self.p2) - np.array(self.p1)
         return u[0] * v[1] - u[1] * v[0] > 0
 
+    def __iter__(self):
+        yield self.p0
+        yield self.p1
+        yield self.p2
 
 if __name__ == "__main__":
     T = Triangle((0, 0), (0, 10), (10, 0))
