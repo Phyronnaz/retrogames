@@ -1,7 +1,9 @@
+import random
 import turtle
 import numpy as np
 import engine
 from config import *
+from triangularisation import get_triangle_list_from_polygon
 
 
 class Landscape(engine.GameObject):
@@ -26,10 +28,14 @@ def makeshape_landscape():
     landscape_shape = turtle.Shape("compound")
 
     points = [np.array([-SCREEN_WIDTH / 2, 0]), np.array([SCREEN_WIDTH / 2, 0])]
-    list = add_middlepoint(points[0], points[1], ydiff=250, depth=8, divisor=1.5)
+    middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=8, divisor=1.5)
 
-    landscape_shape.addcomponent(np.array([np.array([-SCREEN_WIDTH / 2, -SCREEN_HEIGHT])] + list + [np.array([SCREEN_WIDTH / 2, -SCREEN_HEIGHT])]),
-                                 "grey")
+    polygon = [np.array([-SCREEN_WIDTH / 2, -SCREEN_HEIGHT])] + middle_list + [np.array([SCREEN_WIDTH / 2, -SCREEN_HEIGHT])]
+    polygon = [(a[0], a[1]) for a in polygon][::-1]
+    triangle_list = get_triangle_list_from_polygon(polygon)
+    for triangle in triangle_list:
+        landscape_shape.addcomponent(triangle, random.choice(["red","green","blue","orange","purple","pink","yellow"]))
+
 
     turtle.register_shape('landscape', landscape_shape)
-    return list
+    return middle_list

@@ -28,10 +28,11 @@ def get_triangle_list_from_polygon(l: list()) -> list():
 
     triangle_list = []
 
-    for _ in range(len(l) - 2):
+    for i in range(len(l) - 2):
+        print(len(l) - 1 - i)
         ear_node, triangle = get_first_ear(cycle_list)
         triangle_list.append(triangle)
-        cycle_list.pop()
+        cycle_list.remove(ear_node)
 
     return triangle_list
 
