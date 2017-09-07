@@ -2,9 +2,6 @@ import pygame
 
 
 class GameObject:
-    def __init__(self):
-        pass
-
     def draw(self):
         pass
 
@@ -13,6 +10,7 @@ class GameObject:
 
     def get_collision(self) -> (str, object):
         pass
+
 
 class StaticObject(GameObject):
     def is_inside(self, position: (int, int)) -> bool:
