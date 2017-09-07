@@ -1,8 +1,8 @@
-from cycleList import *
+from cycle_list import *
 from triangle import *
 
 
-def get_first_earFor(c: CycleList) -> (int, int):
+def get_first_ear_for(c: CycleList) -> (int, int):
     for e in c:
         triangle = Triangle(e.previous_node.data, e.data, e.next_node.data)
         if triangle.is_valid():
