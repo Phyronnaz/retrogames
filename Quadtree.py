@@ -53,17 +53,3 @@ class Quadtree:
                     ]
                     for child in self.childs:
                         child.add_triangle(triangle)
-
-    def draw(self):
-        print(self.position)
-        turtle.goto(self.position[0], self.position[1])
-        turtle.shapesize(0.1, 0.1, 0.1)
-        turtle.shape("square")
-        turtle.color("red" if len(self.objects) == 0 else "black")
-        turtle.stamp()
-        turtle.shapesize(1, 1, 1)
-
-
-        if not self.is_leaf:
-            for child in self.childs:
-                child.draw()
