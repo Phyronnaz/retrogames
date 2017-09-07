@@ -2,7 +2,7 @@ import turtle
 
 import numpy as np
 
-from config import TERRAIN_WIDTH, MAX_DEPTH
+from config import TERRAIN_WIDTH, QUADTREE_DEPTH
 
 
 class Quadtree:
@@ -38,10 +38,10 @@ class Quadtree:
                 object.is_inside(self.position + np.array([-d, +d])) or \
                 object.is_inside(self.position + np.array([+d, +d])) or \
                 any([self.is_inside(point) for point in object]):
-            if self.depth == MAX_DEPTH:
+            if self.depth == QUADTREE_DEPTH:
                 self.objects.append(object)
             else:
-                if not self.is_leaf:
+                if self.is_leaf:
                     self.is_leaf = False
                     d = self.width() / 4
                     self.childs = [

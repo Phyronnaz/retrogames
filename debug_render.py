@@ -1,15 +1,23 @@
 from pygame.rect import Rect
 
 from Quadtree import *
-import pygame
+from game_object import *
 
 
-def quadtree_render(screen: pygame.Surface, quadtree: Quadtree):
-    # print(q.position)
-    w = quadtree.width()
+class QuadtreeRender(GameObject):
+    def __init__(self, quadtree: Quadtree):
+        self.quadtree = quadtree
+        super().__init__()
 
-    pygame.draw.rect(screen, (0, 255, 0), Rect(quadtree.position, (w, w)), 10)
+    def quadtree_render(self, screen: pygame.Surface, quadtree: Quadtree):
+        w = quadtree.width()
 
-    if not quadtree.is_leaf:
-        for child in quadtree.childs:
-            quadtree_render(screen, child)
+        rect = Rect(self.get_world_position(quadtree.position - np.ones(2) * w / 2), (self.scale * w, self.scale * w))
+        pygame.draw.rect(screen, (0, 255, 0), rect, 1)
+
+        if not quadtree.is_leaf:
+            for child in quadtree.childs:
+                self.quadtree_render(screen, child)
+
+    def draw(self, screen):
+        self.quadtree_render(screen, self.quadtree)
