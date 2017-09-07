@@ -1,18 +1,11 @@
 from Quadtree import *
 import pygame
 
-def quadTreeRender(screen:pygame.Surface,q:QuadTree):
-    print(self.position)
-    w=q.width()/2
-    x1=self.position[0]-w
-    x2=self.position[0]+w
-    y1=self.position[1]-w
-    y2=self.position[1]+w
+def quadTree_render(screen:pygame.Surface,q:QuadTree):
+    print(q.position)
+    w=q.width()
 
-    pygame.draw.line(screen, (0,0,0), (x1,y1), (x1,y2), width=1)
-    pygame.draw.line(screen, (0,0,0), (x1,y2), (x2,y2), width=1)
-    pygame.draw.line(screen, (0,0,0), (x2,y2), (x2,y1), width=1)
-    pygame.draw.line(screen, (0,0,0), (x2,y1), (x2,y1), width=1)
+    pygame.draw.rect(screen, (0,0,0), Rect((q.position[0],q.position[1]),(w,w)), 1)
 
 
     if not q.is_leaf:
