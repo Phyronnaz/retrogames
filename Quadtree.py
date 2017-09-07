@@ -31,25 +31,23 @@ class Quadtree:
         return self.position[0] - self.width() / 2 <= position[0] <= self.position[0] + self.width() / 2 \
                and self.position[1] - self.width() / 2 <= position[1] <= self.position[1] + self.width() / 2
 
-    def add_triangle(self, triangle):
+    def add_object(self, object):
         d = self.width() / 2
-        if triangle.is_inside(self.position + np.array([-d, -d])) or \
-                triangle.is_inside(self.position + np.array([+d, -d])) or \
-                triangle.is_inside(self.position + np.array([-d, +d])) or \
-                triangle.is_inside(self.position + np.array([+d, +d])) or \
-                self.is_inside(triangle[0]) or \
-                self.is_inside(triangle[1]) or \
-                self.is_inside(triangle[2]):
-                if self.depth == MAX_DEPTH:
-                    self.objects.append(triangle)
-                else:
-                    self.is_leaf = False
-                    d = self.width() / 4
-                    self.childs = [
-                        Quadtree(self.position + np.array([-d, -d]), self.depth + 1),
-                        Quadtree(self.position + np.array([+d, -d]), self.depth + 1),
-                        Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
-                        Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
-                    ]
-                    for child in self.childs:
-                        child.add_triangle(triangle)
+        if object.is_inside(self.position + np.array([-d, -d])) or \
+                object.is_inside(self.position + np.array([+d, -d])) or \
+                object.is_inside(self.position + np.array([-d, +d])) or \
+                object.is_inside(self.position + np.array([+d, +d])) or \
+                any([self.is_inside(point) for point in object]):
+            if self.depth == MAX_DEPTH:
+                self.objects.append(object)
+            else:
+                self.is_leaf = False
+                d = self.width() / 4
+                self.childs = [
+                    Quadtree(self.position + np.array([-d, -d]), self.depth + 1),
+                    Quadtree(self.position + np.array([+d, -d]), self.depth + 1),
+                    Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
+                    Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
+                ]
+                for child in self.childs:
+                    child.add_object(object)

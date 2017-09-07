@@ -2,6 +2,7 @@ import pygame
 
 from Quadtree import Quadtree
 from config import *
+from debug_render import quadtree_render
 
 
 class Engine:
@@ -12,11 +13,13 @@ class Engine:
 
     def add_static_object(self, static_object):
         self.static_objects.append(static_object)
+        for component in static_object.get_components():
+            self.quadtree.add_object(component)
 
     def add_dynamic_object(self, dynamic_object):
         self.dynamic_objects.append(dynamic_object)
 
-    def start(self):
+    def loop(self):
         # Initialize the game engine
         pygame.init()
 
@@ -54,6 +57,8 @@ class Engine:
             for game_object in self.static_objects + self.dynamic_objects:
                 game_object.update(events)
                 game_object.draw(screen)
+
+            quadtree_render(screen, self.quadtree)
 
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.

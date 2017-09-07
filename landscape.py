@@ -42,3 +42,6 @@ class Landscape(StaticObject):
         self.polygon = [tuple(p.dot(rotation_matrix) + self.position) for p in points]
 
         self.triangle_list = get_triangle_list_from_polygon(self.polygon)
+
+    def get_components(self):
+        return self.triangle_list

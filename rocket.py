@@ -4,10 +4,10 @@ import numpy as np
 import pygame
 
 from config import SCREEN_WIDTH
-from game_object import GameObject
+from game_object import GameObject, DynamicObject
 
 
-class Rocket(GameObject):
+class Rocket(DynamicObject):
     def __init__(self, scale=10):
         super().__init__((SCREEN_WIDTH / 2, 100))
 
@@ -30,4 +30,4 @@ class Rocket(GameObject):
         pygame.draw.polygon(screen, (255, 0, 0), np.add(self.main_shape, self.position), 0)
 
     def update(self, events):
-
+        pass

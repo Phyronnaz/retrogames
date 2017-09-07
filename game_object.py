@@ -24,6 +24,9 @@ class StaticObject(GameObject):
     def is_inside(self, position: (int, int)) -> bool:
         pass
 
+    def get_components(self):
+        pass
+
 
 class DynamicObject(GameObject):
     def __init__(self, position=(0, 0), rotation=0, speed=(0, 0)):
