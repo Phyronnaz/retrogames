@@ -16,6 +16,10 @@ class GameObject:
     def get_collision(self) -> (str, object):
         pass
 
+    def move(self, delta_pos):
+        delta_pos = np.array(delta_pos)
+        self.position += delta_pos
+
 
 class StaticObject(GameObject):
     def __init__(self, position=(0, 0), rotation=0):

@@ -41,13 +41,14 @@ class Quadtree:
             if self.depth == MAX_DEPTH:
                 self.objects.append(object)
             else:
-                self.is_leaf = False
-                d = self.width() / 4
-                self.childs = [
-                    Quadtree(self.position + np.array([-d, -d]), self.depth + 1),
-                    Quadtree(self.position + np.array([+d, -d]), self.depth + 1),
-                    Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
-                    Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
-                ]
+                if not self.is_leaf:
+                    self.is_leaf = False
+                    d = self.width() / 4
+                    self.childs = [
+                        Quadtree(self.position + np.array([-d, -d]), self.depth + 1),
+                        Quadtree(self.position + np.array([+d, -d]), self.depth + 1),
+                        Quadtree(self.position + np.array([-d, +d]), self.depth + 1),
+                        Quadtree(self.position + np.array([+d, +d]), self.depth + 1)
+                    ]
                 for child in self.childs:
                     child.add_object(object)

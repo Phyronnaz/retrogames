@@ -30,7 +30,7 @@ class Landscape(StaticObject):
                    + add_middlepoint(middle, end, ydiff / divisor, depth - 1, divisor)
 
         points = [np.array([-TERRAIN_WIDTH / 2, TERRAIN_MEAN]), np.array([TERRAIN_WIDTH / 2, TERRAIN_MEAN])]
-        middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=2, divisor=1.5)
+        middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=LANDSCAPE_DEPTH, divisor=1.5)
 
         points = [np.array([-TERRAIN_WIDTH / 2, TERRAIN_HEIGHT / 2 + TERRAIN_MEAN])] + \
                  middle_list + \
