@@ -7,7 +7,7 @@ from triangularisation import get_triangle_list_from_polygon
 
 
 class Landscape(StaticObject):
-    def __init__(self, color=(0, 0, 0, 0), width=1):
+    def __init__(self, color=(0, 0, 0, 0), width=0):
         super().__init__((0, 0))
         self.triangle_list = []
         self.polygon = []
@@ -29,11 +29,16 @@ class Landscape(StaticObject):
                    + [middle] \
                    + add_middlepoint(middle, end, ydiff / divisor, depth - 1, divisor)
 
-        points = [np.array([-SCREEN_WIDTH / 2, 0]), np.array([SCREEN_WIDTH / 2, 0])]
-        middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=6, divisor=1.1)
+        points = [np.array([-TERRAIN_WIDTH / 2, TERRAIN_MEAN]), np.array([TERRAIN_WIDTH / 2, TERRAIN_MEAN])]
+        middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=8, divisor=1.5)
 
-        polygon = [np.array([-SCREEN_WIDTH / 2, -SCREEN_HEIGHT])] + middle_list + [
-            np.array([SCREEN_WIDTH / 2, -SCREEN_HEIGHT])]
+        points = [np.array([-TERRAIN_WIDTH / 2, TERRAIN_HEIGHT / 2 + TERRAIN_MEAN])] + \
+                 middle_list + \
+                 [np.array([TERRAIN_WIDTH / 2, TERRAIN_HEIGHT / 2 + TERRAIN_MEAN])]
 
-        self.polygon = [(a[0], a[1]) for a in polygon][::-1]
+        rotation_matrix = np.array([[np.cos(self.rotation), -np.sin(self.rotation)],
+                                    [np.sin(self.rotation), np.cos(self.rotation)]])
+
+        self.polygon = [tuple(p.dot(rotation_matrix) + self.position) for p in points]
+
         self.triangle_list = get_triangle_list_from_polygon(self.polygon)

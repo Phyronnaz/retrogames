@@ -3,11 +3,11 @@ import pygame
 
 
 class GameObject:
-    def __init__(self,position=(0,0),rotation=0):
-        self.position=np.array(position)
-        self.rotation=rotation
+    def __init__(self, position=(0, 0), rotation=0):
+        self.position = np.array(position)
+        self.rotation = rotation
 
-    def draw(self):
+    def     draw(self, screen):
         pass
 
     def update(self, events):
@@ -18,18 +18,18 @@ class GameObject:
 
 
 class StaticObject(GameObject):
-
-    def __init__(self,position=(0,0),rotation=0):
-        super().__init__(position,rotation)
+    def __init__(self, position=(0, 0), rotation=0):
+        super().__init__(position, rotation)
 
     def is_inside(self, position: (int, int)) -> bool:
         pass
 
 
 class DynamicObject(GameObject):
-    def __init__(self,position=(0,0),rotation=0,vitesse=(0,0)):
-        super().__init__(position,rotation)
-        self.speed=np.array(speed)
+    def __init__(self, position=(0, 0), rotation=0, speed=(0, 0)):
+        super().__init__(position, rotation)
+        self.speed = np.array(speed)
+
     def get_bounding_box(self) -> ((int, int), (int, int)):
         pass
 
