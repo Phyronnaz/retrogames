@@ -16,7 +16,7 @@ class Landscape(StaticObject):
         self.create()
 
     def draw(self, screen):
-        pygame.draw.polygon(screen, self.color, self.polygon, self.width)
+        pygame.draw.polygon(screen, self.color, np.add(self.polygon, self.position), self.width)
 
     def create(self):
         def add_middlepoint(start, end, ydiff, depth, divisor):

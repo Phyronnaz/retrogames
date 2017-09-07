@@ -7,7 +7,7 @@ class GameObject:
         self.position = np.array(position)
         self.rotation = rotation
 
-    def     draw(self, screen):
+    def draw(self, screen):
         pass
 
     def update(self, events):
