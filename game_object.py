@@ -9,9 +9,6 @@ class GameObject:
     def draw(self):
         pass
 
-    def update(self, events):
-        pass
-
     def get_collision(self) -> (str, object):
         pass
 
@@ -30,4 +27,7 @@ class DynamicObject(GameObject):
         super().__init__(position,rotation)
         self.speed=np.array(speed)
     def get_bounding_box(self) -> ((int, int), (int, int)):
+        pass
+
+    def update(self, events):
         pass
