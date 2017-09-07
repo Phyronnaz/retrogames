@@ -5,11 +5,12 @@ import time
 import engine
 import numpy as np
 
+from Quadtree import Quadtree
 from config import *
 
 
 class Rocket(engine.GameObject):
-    def __init__(self, engine):
+    def __init__(self, engine, quadtree: Quadtree):
         self.speed = np.zeros(2)
         self.acceleration = np.zeros(2)
 
@@ -17,6 +18,8 @@ class Rocket(engine.GameObject):
         self.rocket_engine = None
         self.timer = 0
         self.angle = 90
+
+        self.quadtree = quadtree
 
         super().__init__(0, 0, 0, 0, 'rocket', 'red')
 
@@ -50,6 +53,10 @@ class Rocket(engine.GameObject):
             self.speed[0] *= - 1
         if np.abs(self.y) > SCREEN_HEIGHT / 2:
             self.speed[1] *= - 1
+
+        if len(self.quadtree.get_objects((self.x, self.y))) != 0:
+            self.speed[1] *= -1
+            print("Coll")
 
     def keyboard(self, key):
         if key == 'space':

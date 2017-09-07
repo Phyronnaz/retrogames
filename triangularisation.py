@@ -2,18 +2,17 @@ from cycleList import *
 from triangle import *
 
 
-
-def get_first_earFor(c:CycleList)->(int,int):
-    
+def get_first_earFor(c: CycleList) -> (int, int):
     for e in c:
-        triangle=Triangle(e.previous_node.data,e.data,e.next_node.data)
+        triangle = Triangle(e.previous_node.data, e.data, e.next_node.data)
         if triangle.is_valid():
             continue
 
-        if triangle.any_inside(map(lambda y:y.data,filter(lambda x: x.data not in triangle ,c))):
+        if triangle.any_inside(map(lambda y: y.data, filter(lambda x: x.data not in triangle, c))):
             continue
         else:
-            return e,triangle
+            return e, triangle
+
 
 def get_first_ear(cycle_list: CycleList) -> (Node, Triangle):
     node = cycle_list.pointer

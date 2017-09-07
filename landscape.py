@@ -28,7 +28,7 @@ def makeshape_landscape():
     landscape_shape = turtle.Shape("compound")
 
     points = [np.array([-SCREEN_WIDTH / 2, 0]), np.array([SCREEN_WIDTH / 2, 0])]
-    middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=8, divisor=1.5)
+    middle_list = add_middlepoint(points[0], points[1], ydiff=250, depth=6, divisor=1.1)
 
     polygon = [np.array([-SCREEN_WIDTH / 2, -SCREEN_HEIGHT])] + middle_list + [np.array([SCREEN_WIDTH / 2, -SCREEN_HEIGHT])]
     polygon = [(a[0], a[1]) for a in polygon][::-1]
@@ -38,4 +38,4 @@ def makeshape_landscape():
 
 
     turtle.register_shape('landscape', landscape_shape)
-    return middle_list
+    return triangle_list
