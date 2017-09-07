@@ -8,9 +8,11 @@ class GameObject:
     def draw(self):
         pass
 
-    def update(self):
+    def update(self, events):
         pass
 
+    def get_collision(self) -> (str, object):
+        pass
 
 class StaticObject(GameObject):
     def is_inside(self, position: (int, int)) -> bool:
@@ -19,7 +21,4 @@ class StaticObject(GameObject):
 
 class DynamicObject(GameObject):
     def get_bounding_box(self) -> ((int, int), (int, int)):
-        pass
-
-    def get_collision(self) -> (str, object):
         pass
