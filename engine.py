@@ -43,7 +43,8 @@ class Engine:
             # Leave this out and we will use all CPU we can.
             clock.tick(60)
 
-            for event in pygame.event.get():  # User did something
+            events = pygame.event.get()
+            for event in events:  # User did something
                 if event.type == pygame.QUIT:  # If user clicked close
                     done = True  # Flag that we are done so we exit this loop
 
@@ -51,8 +52,8 @@ class Engine:
             screen.fill(WHITE)
 
             for game_object in self.static_objects + self.dynamic_objects:
-                game_object.update()
-                game_object.draw()
+                game_object.update(events)
+                game_object.draw(screen)
 
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.

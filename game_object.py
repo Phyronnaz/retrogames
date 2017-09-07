@@ -1,8 +1,12 @@
+import numpy as np
 import pygame
 
 
 class GameObject:
-    def draw(self):
+    def __init__(self, position=(0, 0)):
+        self.position = np.array(position)
+
+    def draw(self, screen):
         pass
 
     def update(self, events):
