@@ -30,7 +30,7 @@ class Quadtree:
     def is_inside(self, position):
         position = np.array(position)
         return self.position[0] - self.width() / 2 <= position[0] <= self.position[0] + self.width() / 2 \
-            and self.position[1] - self.width() / 2 <= position[1] <= self.position[1] + self.width() / 2
+               and self.position[1] - self.width() / 2 <= position[1] <= self.position[1] + self.width() / 2
 
     def add_object(self, object):
         def f(x, y):
@@ -39,8 +39,8 @@ class Quadtree:
         d = self.width() / 2
 
         if (f(-d, -d) or f(+d, -d) or f(-d, +d) or f(+d, +d) or \
-                any([self.is_inside(point) for point in object])) and \
-                not(f(-d, -d) and f(+d, -d) and f(-d, +d) and f(+d, +d)):
+                    any([self.is_inside(point) for point in object])) and \
+                not (f(-d, -d) and f(+d, -d) and f(-d, +d) and f(+d, +d)):
             if self.depth == QUADTREE_DEPTH:
                 self.objects.append(object)
             else:
