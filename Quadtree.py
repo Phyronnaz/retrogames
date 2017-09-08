@@ -31,6 +31,23 @@ class Quadtree:
         return self.position[0] - self.width() / 2 <= position[0] <= self.position[0] + self.width() / 2 \
                and self.position[1] - self.width() / 2 <= position[1] <= self.position[1] + self.width() / 2
 
+    def get_overlapping_quadtree(self, object):
+        def f(x, y):
+            return object.is_inside(self.position + np.array([x, y]))
+
+        d = self.width() / 2
+
+        if f(-d, -d) or f(+d, -d) or f(-d, +d) or f(+d, +d) or any([self.is_inside(point) for point in object]):
+            if self.is_leaf:
+                return [self]
+            else:
+                return self.childs[0].get_overlapping_quadtree(object) + \
+                       self.childs[1].get_overlapping_quadtree(object) + \
+                       self.childs[2].get_overlapping_quadtree(object) + \
+                       self.childs[3].get_overlapping_quadtree(object)
+        else:
+            return []
+
     def add_object(self, object):
         def f(x, y):
             return object.is_inside(self.position + np.array([x, y]))
