@@ -55,6 +55,8 @@ class Rocket(DynamicObject):
         if keys[pygame.K_RIGHT]:
             self.angular_acceleration -= ROCKET_ANGULAR_ACCELERATION
 
+        self.acceleration[1] += 100
+
         super().update(deltatime, events, keys)
 
     def get_bounding_box_corners(self):
