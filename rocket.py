@@ -12,6 +12,7 @@ class Rocket(DynamicObject):
         super().__init__(position, rotation, scale)
 
         self.time_since_thrust = 0
+        self.corner = [(0, 0), (0, 0)]
 
         # Engine
         self.orange_shape = np.array(((-1, 0), (-0.75, -1), (-0.5, 0), (-0.25, -1), (0, 0),
@@ -36,6 +37,9 @@ class Rocket(DynamicObject):
         pygame.draw.polygon(screen, (0, 0, 0), self.get_world_position(self.right_wing_shape), 0)
         pygame.draw.polygon(screen, (255, 0, 0), self.get_world_position(self.main_shape), 0)
 
+        pygame.draw.circle(screen, (0, 255, 0), self.corner[0], 5)
+        pygame.draw.circle(screen, (0, 255, 0), self.corner[1], 5)
+
     def update(self, deltatime, events, keys):
         if self.time_since_thrust > 0:
             self.time_since_thrust -= deltatime
@@ -52,3 +56,10 @@ class Rocket(DynamicObject):
             self.angular_acceleration -= ROCKET_ANGULAR_ACCELERATION
 
         super().update(deltatime, events, keys)
+
+    def get_bounding_box_corners(self):
+
+        x1, y1 = self.get_world_position(self.main_shape)[:, 0].min(), self.get_world_position(self.main_shape)[:, 1].min()
+        x2, y2 = self.get_world_position(self.main_shape)[:, 0].max(), self.get_world_position(self.main_shape)[:, 1].max()
+        self.corner = (int(x1), int(y1)), (int(x2), int(y2))
+        return (x1, y1), (x2, y1), (x2, y2), (x1, y2)

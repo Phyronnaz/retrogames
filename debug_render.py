@@ -11,9 +11,15 @@ class QuadtreeRender(GameObject):
 
     def quadtree_render(self, screen: pygame.Surface, quadtree: Quadtree):
         w = quadtree.width() * self.engine.global_scale
-         
-        rect = Rect(self.get_world_position(quadtree.position) - np.ones(2) * w / 2, (w,  w))
-        pygame.draw.rect(screen, (0, 255, 0), rect, 1)
+
+        rand = np.random.RandomState(int(quadtree.position[0] + quadtree.position[1] * TERRAIN_WIDTH) + TERRAIN_WIDTH * TERRAIN_WIDTH)
+        color = (rand.randint(0, 256), rand.randint(0, 256), rand.randint(0, 256))
+
+        rect = Rect(self.get_world_position(quadtree.position) - np.ones(2) * w / 2, (w, w))
+        pygame.draw.rect(screen, color, rect, 2)
+
+        # for object in quadtree.objects:
+        #     pygame.draw.polygon(screen, color, [self.get_world_position(p) for p in object])
 
         if not quadtree.is_leaf:
             for child in quadtree.childs:

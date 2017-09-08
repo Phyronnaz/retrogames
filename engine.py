@@ -89,9 +89,7 @@ class Engine:
 
                 for dynamic_object in self.dynamic_objects:
                     if self.quadtree.is_inside(dynamic_object.position):
-                        print(dynamic_object.position)
                         for object in self.quadtree.get_objects(dynamic_object.position):
-                            print("Inside")
                             dynamic_object.collide_with(object)
 
             # Go ahead and update the screen with what we've drawn.

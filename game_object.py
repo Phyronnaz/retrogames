@@ -40,7 +40,7 @@ class DynamicObject(GameObject):
         self.angular_speed = 0
         self.angular_acceleration = 0
 
-    def get_bounding_box(self) -> ((int, int), (int, int)):
+    def get_bounding_box_corners(self) -> ((int, int), (int, int)):
         pass
 
     def update(self, deltatime, events, keys):
@@ -53,8 +53,9 @@ class DynamicObject(GameObject):
 
     def collide_with(self, object):
         type, collision = object.get_collision()
-        (x1, y1), (x2, y2) = self.get_bounding_box()
-        corners = [(x1, y1), (x2, y1), (x2, y2), (x1, y2)]
+
+        corners = self.get_bounding_box_corners()
+        (x1, y1), (x2, y1), (x2, y2), (x1, y2) = corners
 
         def is_inside(position):
             return x1 <= position[0] <= x2 and y1 <= position[0] <= y2
@@ -63,7 +64,7 @@ class DynamicObject(GameObject):
             triangle = collision
             collide = False
             for corner in corners:
-                if triangle.is_inside(corner):
+                if triangle.is_inside((corner - self.engine.global_position) / self.engine.global_scale):
                     collide = True
                     break
             for p in triangle:
@@ -71,4 +72,5 @@ class DynamicObject(GameObject):
                     collide = True
                     break
             if collide:
+                print("Collide")
                 self.speed *= -1
