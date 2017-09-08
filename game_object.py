@@ -17,8 +17,8 @@ class GameObject:
         rotation_matrix = np.array([[np.cos(self.rotation), -np.sin(self.rotation)],
                                     [np.sin(self.rotation), np.cos(self.rotation)]])
 
-        return self.engine.global_scale * np.add(self.scale * np.dot(position, rotation_matrix), self.position) + \
-               self.engine.global_position
+        return self.engine.global_scale * (np.add(self.scale * np.dot(position, rotation_matrix), self.position) + \
+               self.engine.global_position)
 
 
 class StaticObject(GameObject):

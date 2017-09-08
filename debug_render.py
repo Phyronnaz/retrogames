@@ -2,7 +2,7 @@ from pygame.rect import Rect
 
 from Quadtree import *
 from game_object import *
-
+from config import *
 
 class QuadtreeRender(GameObject):
     def __init__(self, quadtree: Quadtree):
@@ -23,7 +23,9 @@ class QuadtreeRender(GameObject):
 
         if not quadtree.is_leaf:
             for child in quadtree.childs:
-                self.quadtree_render(screen, child)
+                gPos=self.get_world_position(child.position)
+                if 0 <= gPos[0]+w/2 and gPos[0]-w/2 <= SCREEN_WIDTH and 0 <= gPos[1]+w/2 and gPos[0]-w/2 <= SCREEN_HEIGHT and w > 100:
+                    self.quadtree_render(screen, child)
 
     def draw(self, screen):
         self.quadtree_render(screen, self.quadtree)
