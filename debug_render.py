@@ -10,9 +10,9 @@ class QuadtreeRender(GameObject):
         super().__init__()
 
     def quadtree_render(self, screen: pygame.Surface, quadtree: Quadtree):
-        w = quadtree.width()
-
-        rect = Rect(self.get_world_position(quadtree.position - np.ones(2) * w / 2), (self.scale * w, self.scale * w))
+        w = quadtree.width() * self.engine.global_scale
+         
+        rect = Rect(self.get_world_position(quadtree.position) - np.ones(2) * w / 2, (w,  w))
         pygame.draw.rect(screen, (0, 255, 0), rect, 1)
 
         if not quadtree.is_leaf:

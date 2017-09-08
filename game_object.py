@@ -37,6 +37,8 @@ class DynamicObject(GameObject):
         super().__init__(position, rotation, scale)
         self.speed = np.array(speed, dtype=float)
         self.acceleration = np.zeros(2)
+        self.angular_speed = 0
+        self.angular_acceleration = 0
 
     def get_bounding_box(self) -> ((int, int), (int, int)):
         pass
@@ -45,6 +47,9 @@ class DynamicObject(GameObject):
         self.speed += deltatime * self.acceleration
         self.position += deltatime * self.speed
         self.acceleration = np.zeros(2)
+        self.rotation += self.angular_speed * deltatime
+        self.angular_speed += self.angular_acceleration * deltatime
+        self.angular_acceleration = 0
 
     def collide_with(self, object):
         type, collision = object.get_collision()

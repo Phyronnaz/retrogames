@@ -46,9 +46,9 @@ class Rocket(DynamicObject):
             self.time_since_thrust = ROCKET_ENGINE_ANIM_DURATION
 
         if keys[pygame.K_LEFT]:
-            self.rotation += ROCKET_ROTATION_SPEED
+            self.angular_acceleration += ROCKET_ANGULAR_ACCELERATION
 
         if keys[pygame.K_RIGHT]:
-            self.rotation -= ROCKET_ROTATION_SPEED
+            self.angular_acceleration -= ROCKET_ANGULAR_ACCELERATION
 
         super().update(deltatime, events, keys)
