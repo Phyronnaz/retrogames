@@ -12,13 +12,6 @@ class GameObject:
     def draw(self, screen):
         pass
 
-    def get_collision(self) -> (str, object):
-        pass
-
-    def move(self, delta_pos):
-        delta_pos = np.array(delta_pos)
-        self.position += delta_pos
-
     def get_world_position(self, position):
         position = np.array(position)
         rotation_matrix = np.array([[np.cos(self.rotation), -np.sin(self.rotation)],
@@ -52,3 +45,25 @@ class DynamicObject(GameObject):
         self.speed += deltatime * self.acceleration
         self.position += deltatime * self.speed
         self.acceleration = np.zeros(2)
+
+    def collide_with(self, object):
+        type, collision = object.get_collision()
+        (x1, y1), (x2, y2) = self.get_bounding_box()
+        corners = [(x1, y1), (x2, y1), (x2, y2), (x1, y2)]
+
+        def is_inside(position):
+            return x1 <= position[0] <= x2 and y1 <= position[0] <= y2
+
+        if type == "triangle":
+            triangle = collision
+            collide = False
+            for corner in corners:
+                if triangle.is_inside(corner):
+                    collide = True
+                    break
+            for p in triangle:
+                if is_inside(p):
+                    collide = True
+                    break
+            if collide:
+                self.speed *= -1

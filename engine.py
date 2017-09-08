@@ -87,6 +87,13 @@ class Engine:
                 for dynamic_object in self.dynamic_objects:
                     dynamic_object.update(deltatime, events, keys)
 
+                for dynamic_object in self.dynamic_objects:
+                    if self.quadtree.is_inside(dynamic_object.position):
+                        print(dynamic_object.position)
+                        for object in self.quadtree.get_objects(dynamic_object.position):
+                            print("Inside")
+                            dynamic_object.collide_with(object)
+
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.
             pygame.display.flip()
