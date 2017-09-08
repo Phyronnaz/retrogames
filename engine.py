@@ -80,17 +80,17 @@ class Engine:
             # Clear the screen and set the screen background
             screen.fill(WHITE)
 
-            for game_object in self.static_objects + self.dynamic_objects + self.game_objects:
-                game_object.draw(screen)
-
             if not keys[pygame.K_LCTRL]:
                 for dynamic_object in self.dynamic_objects:
                     dynamic_object.update(deltatime, events, keys)
 
                 for dynamic_object in self.dynamic_objects:
-                    if self.quadtree.is_inside(dynamic_object.position):
-                        for object in self.quadtree.get_objects(dynamic_object.position):
+                    for objects in [self.quadtree.get_objects(p) for p in dynamic_object]:
+                        for object in objects:
                             dynamic_object.collide_with(object)
+
+            for game_object in self.static_objects + self.dynamic_objects + self.game_objects:
+                game_object.draw(screen)
 
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.
