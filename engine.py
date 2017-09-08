@@ -68,9 +68,9 @@ class Engine:
                     self.global_position[1] -= 10
                 if keys[pygame.K_UP]:
                     self.global_position[1] += 10
-                if keys[pygame.K_EQUALS]:
+                if keys[pygame.K_EQUALS] or keys[pygame.K_KP_PLUS]:
                     self.global_scale *= 1 + 0.01
-                if keys[pygame.K_MINUS]:
+                if keys[pygame.K_MINUS] or keys[pygame.K_KP_MINUS]:
                     self.global_scale *= 1 - 0.01
 
             for event in events:  # User did something
